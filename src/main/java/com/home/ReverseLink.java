@@ -1,4 +1,4 @@
-package leetcode.easy;
+package com.home;
 
 /**
  * Created by liyang on 23/9/2017.

@@ -24,9 +24,7 @@ public class ArraySort {
             for (int j = i-1 ; j >= 0; j--) {
                 if (value < data[j]) {
                     data[j + 1] = data[j];
-                }else{
-                    data[j + 1] = value;
-                    break;
+                    data[j] = value;
                 }
             }
             dumpArray(data);

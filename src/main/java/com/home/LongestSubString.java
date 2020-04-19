@@ -5,10 +5,10 @@ package com.home;
  * Longest Substring Without Repeating Characters
  * https://leetcode.com/problems/longest-substring-without-repeating-characters/description/
  */
-public class App {
+public class LongestSubString {
 
     public static void main( String[] args ) {
-        System.out.println("final result "+new App().lengthOfLongestSubstring(""));
+        System.out.println("final result "+new LongestSubString().lengthOfLongestSubstring(""));
     }
 
     public int lengthOfLongestSubstring(String s) {

@@ -14,25 +14,28 @@ class ArraySortTest {
 
     @Test
     public void testBubble() {
-        int[] testData = new int[10];
+        int n = 100_000;
+        int[] testData = new int[n];
         Random r = new Random();
-        for (int i = 0; i < 10; i++) {
-            testData[i] = r.nextInt(100);
+        for (int i = 0; i < n; i++) {
+            testData[i] = r.nextInt(n);
         }
-        dumpArray(testData);
+        long time = System.currentTimeMillis();
         ArraySort.bubbleSort(testData);
-        dumpArray(testData);
+        System.out.println(System.currentTimeMillis()-time);
     }
 
     @Test
     public void testInsert() {
-        int[] testData = new int[10];
+        int n = 100_000;
+        int[] testData = new int[n];
         Random r = new Random();
-        for (int i = 0; i < 10; i++) {
-            testData[i] = r.nextInt(100);
+        for (int i = 0; i < n; i++) {
+            testData[i] = r.nextInt(n);
         }
-        dumpArray(testData);
+        long time = System.currentTimeMillis();
         ArraySort.insertSort(testData);
+        System.out.println(System.currentTimeMillis()-time);
     }
 
     private void dumpArray(int[] data) {

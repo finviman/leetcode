@@ -1,4 +1,4 @@
-package own.puzzle;
+package com.home;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -39,7 +39,6 @@ public class BinaryTreeLeftView {
         int value;
         TreeNode left;
         TreeNode right;
-
         TreeNode(int n) {
             this.value = n;
         }

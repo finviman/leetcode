@@ -21,27 +21,14 @@ public class Merge2SortedArray {
         int aLength = a.length;
         int bLength = b.length;
         int[] merged = new int[aLength + bLength];
-        int i=0,j=0,k=0;
-        while (i<aLength&&j<bLength) {
-            if (a[i]<=b[j]) {
-                merged[k] = a[i];
+        int i=0,j=0;
+        while (i < aLength || j < bLength) {
+            if (a[i] <= b[j]) {
+                merged[i + j] = a[i];
                 i++;
-            }else {
-                merged[k] = b[j];
+            } else {
+                merged[i + j] = b[j];
                 j++;
-            }
-            k++;
-        }
-        if (aLength==i) {
-            while (j < bLength) {
-                merged[k] = b[j];
-                k++;j++;
-            }
-        }
-        if (bLength==j) {
-            while (i < aLength) {
-                merged[k] = a[i];
-                k++;i++;
             }
         }
         return merged;

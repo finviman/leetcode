@@ -7,7 +7,7 @@ public class MaxProfit {
         System.out.println(max);
     }
 
-    private int maxProfit(int[] prices){
+    private static int maxProfit(int[] prices){
         int mini = prices[0];
         int maxProfit = 0;
         for(int i=1;i<prices.length;i++){

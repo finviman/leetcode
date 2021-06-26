@@ -13,7 +13,7 @@ public class AddTwoNumbers {
 
         int nextBit = 0;
         while (l1 != null && l2 != null) {
-            ListNode res = new ListNode();
+            ListNode res = new ListNode(0);
             if (cursor!=null) {
                 cursor.next = res;
             }else {
@@ -28,7 +28,7 @@ public class AddTwoNumbers {
         }
         if (l1 == null && l2 == null) {
             if (nextBit == 1) {
-                ListNode last = new ListNode();
+                ListNode last = new ListNode(0);
                 last.val=1;
                 cursor.next = last;
             }
@@ -47,15 +47,10 @@ public class AddTwoNumbers {
             }
         }
         if (nextBit == 1) {
-            ListNode last = new ListNode();
+            ListNode last = new ListNode(0);
             last.val=1;
             cursor.next = last;
         }
         return head;
     }
-}
-
-class ListNode{
-    public int val;
-    public ListNode next;
 }

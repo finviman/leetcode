@@ -19,35 +19,26 @@ public class LevelTraversal {
         Node root = new Node(1);
         root.left = new Node(2);
         root.right = new Node(3);
-        //root.left.left = new Node(4);
+//        root.left.left = new Node(4);
         root.left.right = new Node(5);
-        //root.right.left = new Node(6);
+//        root.right.left = new Node(6);
         root.right.right = new Node(7);
         traversal(root);
     }
 
     public void traversal(Node root){
-        int thisLevelNumber = 1;
-        int nextLevelNumber = 0;
-        assistQueue.offer(root);
-        while (thisLevelNumber > 0) {
-            Node thisLevels = assistQueue.poll();
-            System.out.println(thisLevels.data);
-            thisLevelNumber--;
-            if (thisLevels.left!=null) {
-                assistQueue.offer(thisLevels.left);
-                nextLevelNumber++;
+        assistQueue.add(root);
+        Node cur = null;
+        while (assistQueue.size()>0) {
+            cur = assistQueue.pop();
+            System.out.println(cur.data);
+            if (cur.left!=null) {
+                assistQueue.add(cur.left);
             }
-            if (thisLevels.right!=null) {
-                assistQueue.offer(thisLevels.right);
-                nextLevelNumber++;
-            }
-            if (thisLevelNumber==0) {
-                thisLevelNumber= nextLevelNumber;
-                nextLevelNumber=0;
+            if (cur.right!=null) {
+                assistQueue.add(cur.right);
             }
         }
-
     }
 
     class Node{

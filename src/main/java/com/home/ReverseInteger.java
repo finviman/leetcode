@@ -5,25 +5,24 @@ package com.home;
  */
 public class ReverseInteger {
     public static void main(String[] args) {
-        int ori = 103;
-        int reversed = reverseInt(ori);
+        long ori = 0;
+        long reversed = reverseInt(ori);
         System.out.println("----"+reversed);
-//        System.out.println(getBits(ori));
     }
 
-    private static int reverseInt(int ori) {
+    private static long reverseInt(long ori) {
         if (ori < 10) {
             return  ori;
         }else{
-            int inter = reverseInt(ori / 10);
+            long inter = reverseInt(ori / 10);
             System.out.println(inter);
-            return ori%10*((int)Math.pow(10,getBits(inter)))+inter;
+            return ori % 10 * ((int) Math.pow(10, getBits(ori/10))) + inter;
         }
     }
 
-    private static int getBits(int a) {
-        int bits =1;
-        while (a > 10) {
+    private static long getBits(long a) {
+        long bits =1;
+        while (a >= 10) {
             a=a/10;
             bits++;
         }

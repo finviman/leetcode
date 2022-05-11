@@ -30,7 +30,7 @@ public class LevelTraversal {
         assistQueue.add(root);
         Node cur = null;
         while (assistQueue.size()>0) {
-            cur = assistQueue.pop();
+            cur = assistQueue.pop();//这里，如果取出队列里的当前所有，就是一层。可以解决树深度，可以解决树的左视图问题
             System.out.println(cur.data);
             if (cur.left!=null) {
                 assistQueue.add(cur.left);

@@ -7,8 +7,7 @@ public class HomeMadeBlockQueue<T>{
     private int consumePos = 0;
     private int currentSize = 0;
     private Object[] elements;
-    private Object produceLock = new Object();
-    private Object consumeLock = new Object();
+    private Object oneLock = new Object();
     public HomeMadeBlockQueue(int capacity) {
         if (capacity<=0) {
             throw new RuntimeException("capacity must bigger than 0");
@@ -21,35 +20,59 @@ public class HomeMadeBlockQueue<T>{
     }
 
     public void put(T element) throws InterruptedException {
-        synchronized (produceLock) {
+        synchronized (oneLock) {
             if (currentSize==CAPACITY) {//满了
-                produceLock.wait();
+                oneLock.wait();
             }else {
                 elements[prodPos] = element;
-                prodPos = prodPos & (CAPACITY - 1)+1;
+                System.out.println("put element:"+element);
+                prodPos = (prodPos+1) & (CAPACITY - 1);
                 currentSize++;
             }
-            consumeLock.notify();
+            oneLock.notify();
         }
     }
 
     public T get() throws InterruptedException {
-        synchronized (consumeLock) {
+        synchronized (oneLock) {
             if (currentSize == 0) {
-                consumeLock.wait();
+                oneLock.wait();
             }else {
                 T element = (T) elements[consumePos];
-                consumePos = consumePos & (CAPACITY - 1)+1;
+                consumePos = (consumePos+1) & (CAPACITY - 1);
                 currentSize --;
                 return element;
             }
-            produceLock.notify();
+            oneLock.notify();
         }
         return null;
     }
 
     public static void main(String[] args) throws InterruptedException {
         HomeMadeBlockQueue<Integer> bq = new HomeMadeBlockQueue<>(8);
-        bq.put(1);
+        Runnable p = () -> {
+            for (int i = 0; i < 100; i++) {
+                try {
+                    Thread.sleep(10);
+                    bq.put(i);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        Thread produce = new Thread(p);
+        produce.start();
+        Runnable c =()->{
+            while (true){
+                try {
+                    Thread.sleep(100);
+                    System.out.println("get element:"+bq.get());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+        Thread consumer = new Thread(c);
+        consumer.start();
     }
 }

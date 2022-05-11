@@ -25,11 +25,11 @@ public class HomeMadeBlockQueue<T>{
                 oneLock.wait();
             }else {
                 elements[prodPos] = element;
-                System.out.println("put element:"+element);
                 prodPos = (prodPos+1) & (CAPACITY - 1);
                 currentSize++;
+                System.out.println("put element:"+element+ " and size="+currentSize);
+                oneLock.notifyAll();
             }
-            oneLock.notify();
         }
     }
 
@@ -41,9 +41,10 @@ public class HomeMadeBlockQueue<T>{
                 T element = (T) elements[consumePos];
                 consumePos = (consumePos+1) & (CAPACITY - 1);
                 currentSize --;
+                System.out.println("get elemment:"+element + " and size="+currentSize);
+                oneLock.notifyAll();
                 return element;
             }
-            oneLock.notify();
         }
         return null;
     }
@@ -53,7 +54,7 @@ public class HomeMadeBlockQueue<T>{
         Runnable p = () -> {
             for (int i = 0; i < 100; i++) {
                 try {
-                    Thread.sleep(10);
+                    Thread.sleep(13);
                     bq.put(i);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -65,8 +66,8 @@ public class HomeMadeBlockQueue<T>{
         Runnable c =()->{
             while (true){
                 try {
-                    Thread.sleep(100);
-                    System.out.println("get element:"+bq.get());
+                    Thread.sleep(1700);
+                    bq.get();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
